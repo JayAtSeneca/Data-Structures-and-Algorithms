@@ -1,1 +1,2 @@
-***Hello this is md doc***
+## What did you like/not like about Python
+** ANSWER: ** Python is a simple and easy to learn language. In python, I like when we start writing the code there is no need to write the boilerplate code and we can just simply start writing the code. Another thing I like about python is like as compare to lot of other programming languages we don't need braces and semicolon in the program. These are the reasons why I like python language.
