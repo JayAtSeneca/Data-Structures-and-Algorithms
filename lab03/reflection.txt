@@ -1,0 +1,12 @@
+1. 
+**Writing recursive functions**
+Firstly, I started with writing the base case of the function, in which I created the function to pass all the required arguments to the recursive function. For example, in creating the linear search and binary search recursive functions there are some parameters such as current index, lower index and higher index, we have to pass these parameters to the recursive functions.  Secondly, once the base case is created then using the recursive case to get to the base case by using the function itself. Lastly, passing the next arguments which can do the recursive call to the function. Hence, this is the approach of writing recursive functions.
+
+2. 
+**Process of analyzing recursive functions**
+The analysis process of recursive function is exactly same as analysis of regular function. It is done in five steps.
+ 1. Declare n and mathematical expression to count the number of operations.
+ 2. Count the operations in a comment beside each line of the code.
+ 3. Define the mathematical expression by adding the operation counts in the comments.
+ 4. Simplify the equation
+ 5. State the big-O runtime
