@@ -2,4 +2,4 @@
 
 2. The sorting with the method of using two basic algorithms was usually helpful for our team. The combination of insertion sort and selection sort, is actually very useful because in sorting the set of numbers on papers first we find the smallest numbers and after finding few of them and arranging them into the right order, after that we start to pick the number and insert them into the created datasets.
 
-3. The fastest time it took to sort the larger data sets was 2 minutes and 48 seconds. It took 3 minutes and 12 seconds to sort all the numbers.
+3. The fastest time it took to sort the larger data sets was 2 minutes and 48 seconds. It took me 3 minutes and 12 seconds to sort all the numbers.And, the slowest time in our team was 3 minutes and 45 seconds.
