@@ -1,25 +1,21 @@
 class SortedList:
     class Node:
-        
-        
-        def __init__(self, data = None, nx = None, pr = None):
+
+        def __init__(self, data=None, nx=None, pr=None):
             self.data = data
             self.next = nx
             self.prev = pr
 
-    
     def __init__(self):
         self.front = SortedList.Node()
         self.back = SortedList.Node()
-        self.front.next=self.back
+        self.front.next = self.back
         self.back.prev = self.front
         self.length = 0
         self.front.prev = None
         self.back.next = None
 
-
-
-    def insert(self,data):
+    def insert(self, data):
         nn = SortedList.Node(data)
         self.length += 1
         # if list is empty
@@ -52,7 +48,7 @@ class SortedList:
                     return
                 curr = curr.next
 
-    def remove(self,data):
+    def remove(self, data):
         curr = self.front.next
         while curr != None:
             if curr.data == data:
@@ -63,7 +59,6 @@ class SortedList:
             curr = curr.next
         return False
 
-
     def is_present(self, data):
         curr = self.front.next
         while curr != None:
@@ -72,21 +67,19 @@ class SortedList:
             curr = curr.next
         return False
 
-
     def __len__(self):
         return self.length
 
-
     # This is the version you need if you used sentinels:
+
     def __iter__(self):
         curr = self.front.next
         while curr != self.back:
             yield curr.data
-            curr=curr.next
+            curr = curr.next
 
     def __reversed__(self):
         curr = self.back.prev
         while curr != self.front:
             yield curr.data
-            curr=curr.prev
-
+            curr = curr.prev
