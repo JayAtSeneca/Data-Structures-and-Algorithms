@@ -26,7 +26,8 @@ class SortedList:
             self.back.prev = nn
         else:
             curr = self.front
-            while ((curr.next is not None) and (curr.next.data < data)):
+            while ((curr.next is not None) and
+                   (curr.next.data < data)):
                 curr = curr.next
             nn.next = curr.next
             if curr.next is not None:
