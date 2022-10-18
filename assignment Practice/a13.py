@@ -20,8 +20,8 @@ class SortedList:
         self.length += 1
         # if list is empty
         if self.front.next == self.back:
-            nn.next = self.front
-            nn.prev = self.front.next
+            nn.next = self.front.next
+            nn.prev = self.front
             self.front.next = nn
             self.back.prev = nn
         else:
