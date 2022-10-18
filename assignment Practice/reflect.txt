@@ -1,0 +1,3 @@
+1. most challenging: insert function 
+2. overcome your challenge: trial and debugging
+3. Most useful: iter and reverse function
