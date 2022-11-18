@@ -1,2 +1,2 @@
-my_list = [None]*32;
-print(my_list);
+my_list = [None]*10;
+print(len(my_list));
