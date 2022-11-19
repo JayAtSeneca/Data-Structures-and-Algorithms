@@ -3,6 +3,12 @@
 # this is not the best way to do this but the test scripts are not
 # designed to pick up an extra file.
 
+class Record:
+        def __init__(self, key = None, value=None):
+            self.key = key
+            self.value = value
+
+
 class SortedList:
     class Node:
         #Initialized three arguments with None
@@ -35,13 +41,13 @@ class SortedList:
             self.front.next = nn
             self.back.prev = nn
         # if new node is becoming the last element
-        elif self.back.prev.data <= data:
+        elif self.back.prev.data.key <= data.key:
             self.back.prev.next = nn
             nn.prev = self.back.prev
             nn.next = self.back
             self.back.prev = nn
         # if new node data is less then the first node data
-        elif self.front.next.data >= data:
+        elif self.front.next.data.key >= data.key:
             nn.next = self.front.next
             nn.prev = self.front
             self.front.next = nn
@@ -51,7 +57,7 @@ class SortedList:
             # Starting with the first node
             curr = self.front.next
             while curr != None:
-                if data < curr.data:
+                if data.key < curr.data.key:
                     nn.prev = curr.prev
                     nn.next = curr
                     curr.prev.next = nn
@@ -64,7 +70,7 @@ class SortedList:
     def remove(self, data):
         curr = self.front.next
         while curr != None:
-            if curr.data == data:
+            if curr.data.key == data.key:
                 curr.prev.next = curr.next
                 curr.next.prev = curr.prev
                 self.length -= 1
@@ -76,7 +82,7 @@ class SortedList:
     def is_present(self, data):
         curr = self.front.next
         while curr != None:
-            if curr.data == data:
+            if curr.data.key == data.key:
                 return True
             curr = curr.next
         return False
@@ -99,15 +105,11 @@ class SortedList:
             yield curr.data
             curr = curr.prev 
 
+
+
 class ChainingHash:
 
-    # This is a single record in a chaining hash table.  You can
-    # change this in anyway you wish (including not using it at all)
-    class Record:
-        def __init__(self, key = None, value=None):
-            self.key
-            self.value
-
+    
     # You cannot change the function prototypes below.  Other than that
     # how you implement the class is your choice (but it must be a hash
     # table that use chaining for collision resolution)
@@ -123,7 +125,7 @@ class ChainingHash:
             return False
         else:
             idx = hash(key) % self.cap
-            new_record = ChainingHash.Record(key,value)
+            new_record = Record(key,value)
             if self.the_table[idx] == None:
                 #create the linked list and insert the record
                 self.the_table[idx] = SortedList()
@@ -143,14 +145,21 @@ class ChainingHash:
                     grow_list[i] = self.the_table[i]
                 self.the_table = grow_list
                 del grow_list
-                
+                self.cap = self.cap * 2
+            return True
 
+    def modify(self, key, value):
+        if key not in self.the_keys:
+            return False
+        else:
+            for i in range(0, len(self.the_table)):
+                if self.the_table[i] is not None:
+                    for i in self.the_table[i]:
+                        if i.data.key == key:
+                            i.data.value = value
             
 
-
-
-
-    def modify(self, key, value):
+        
 
     def remove(self, key):
 
@@ -159,35 +168,3 @@ class ChainingHash:
     def capacity(self):
 
     def __len__(self):
-
-
-class LinearProbingHash:
-
-    # This is a single record in a chaining hash table.  You can
-    # change this in anyway you wish (including not using it at all)
-    class Record:
-        def __init__(self, key = None, value=None):
-            self.key
-            self.value
-
-
-
-    # You cannot change the function prototypes below.  Other than that
-    # how you implement the class is your choice (but it must be a hash
-    # table that use linear probing for collision resolution)
-    
-    def __init__(self, cap=32):
-
-
-    def insert(self,key, value):
-
-    def modify(self, key, value):
-
-    def remove(self, key):
-
-    def search(self, key):
-
-    def capacity(self):
-
-    def __len__(self):
-
