@@ -1,7 +1,7 @@
-my_list = [None] * 5
-my_list2 = [10]* 6
-my_list = my_list2[0:]
-my_list3 = my_list
-print(my_list)
+my_list = [8]*5
+my_list2 = [10]*10
+for i in range(0,len(my_list)):
+    my_list2[i] = my_list[i]
 del my_list
-print("the length of list", len(my_list3))
+print(my_list2)
+print(len(my_list2))
