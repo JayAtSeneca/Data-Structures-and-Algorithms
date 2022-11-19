@@ -138,33 +138,39 @@ class ChainingHash:
             self.the_keys.append(key)
             load_factor = self.length/self.cap
             #if load factor > 1.0, grow the table by doubling its capacity
-            if load_factor > 1.0:
-                grow_list = [None] * (self.cap*2)
-                grow_list = self.the_table[0:]
-                for i in range(0,len(self.the_table)):
-                    grow_list[i] = self.the_table[i]
-                self.the_table = grow_list
-                del grow_list
-                self.cap = self.cap * 2
+            # if load_factor > 1.0:
+                # grow_list = [None] * (self.cap*2)
+                # for i in range(0,len(self.the_table)):
+                #     grow_list[i] = self.the_table[i]
+                # self.the_table = grow_list
+                # del grow_list
+                # self.cap = self.cap * 2
+                #grow it, use search to return the value and use self.the_keys to hash the value and insert it into the new array
             return True
 
     def modify(self, key, value):
         if key not in self.the_keys:
             return False
         else:
-            for i in range(0, len(self.the_table)):
-                if self.the_table[i] is not None:
-                    for i in self.the_table[i]:
-                        if i.data.key == key:
-                            i.data.value = value
+            idx = hash(key)%self.cap
+            for i in self.the_table[idx]:
+                if i.data.key == key:
+                    i.data.value = value
+                    return True
             
 
-        
-
     def remove(self, key):
+        if key not in self.the_keys:
+            return False
+        else:
+            idx = hash(key)%self.cap
+            for i in self.the_table[idx]:
+                
 
     def search(self, key):
 
     def capacity(self):
+        return self.cap
 
     def __len__(self):
+        return self.length
