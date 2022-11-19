@@ -138,8 +138,9 @@ class ChainingHash:
             #if load factor > 1.0, grow the table by doubling its capacity
             if load_factor > 1.0:
                 grow_list = [None] * (self.cap*2)
-                for i in range(0,len(self.the_table)):
-                    grow_list[i] = self.the_table[i]
+                grow_list = self.the_table[0:]
+                self.the_table = grow_list
+                
 
             
 
