@@ -1,0 +1,96 @@
+# keys = ["apple", "banana", "strawberry", "mango","orange", "lichee", "peach", "pear","grape", "nectarine","blackberry", "clementine","apricot","cantaloupe", "honeydew", "pineapple","blueberry", "coconut", "raspberry","cherry","lettuce", "mushroom", "carrot", "broccoli","pepper", "onion", "garlic","shallots","cabbage", "kale", "leeks", "beets","squash","pumpkin","potato","tomato","watercress", "yam","taro","okra","cilantros","parsley","basil","sage","thyme","tumeric","paprika","cloves"]
+# values = [32, 16, 18, 19, 22, 25, 72, 12,11, 33, 51, 43, 23, 71, 5, 13,5, 17, 35, 12, 13, 44, 46, 76,8, 10, 15, 18, 11, 64, 73, 7,18, 15, 22, 73,41, 56, 54, 36,22, 34, 40, 34, 19, 8, 9, 52 ]
+# table = ChainingHash()
+
+# testing the insert and search functions chainingHash
+# for i in range(32):
+#     print(table.insert(keys[i],values[i]),True)
+#     print(table.capacity(), 32)
+#     print(len(table),i+1)
+# print()
+# print("******* searching now *********")
+# print()
+# for i in range(32):
+#     print(table.search(keys[i]),values[i])
+# Modify function testing
+# for i in range(32):
+#     print(table.modify(keys[i],values[i]),False)
+#     print(table.capacity(), 32)
+#     print(len(table),0)
+# for i in range(32):
+#     table.insert(keys[i],values[i])
+# print()
+# print("****** Modifying the table ********")
+# print()
+# for i in range(32):
+#     print(table.modify(keys[i],values[i]+10),True)
+#     print(table.capacity(), 32)
+#     print(len(table),32)
+# print()
+# print("****** Removing from the table ********")
+# print()
+# for i in range(32):
+#     print(table.remove(keys[i]),True)
+
+
+# GROW FUNCTION TESTER
+# keys = ["apple", "banana", "strawberry", "mango","orange", "lichee", "peach", "pear","grape", "nectarine","blackberry", "clementine","apricot","cantaloupe", "honeydew", "pineapple","blueberry", "coconut", "raspberry","cherry","lettuce", "mushroom", "carrot", "broccoli","pepper", "onion", "garlic","shallots","cabbage", "kale", "leeks", "beets","squash","pumpkin","potato","tomato","watercress", "yam","taro","okra","cilantros","parsley","basil","sage","thyme","tumeric","paprika","cloves"]
+
+# values = [32, 16, 18, 19, 22, 25, 72, 12, 
+#         11, 33, 51, 43, 23, 71, 5, 13,
+#         5, 17, 35, 12, 13, 44, 46, 76,
+#         8, 10, 15, 18, 11, 64, 73, 7,
+#         18, 15, 22, 73,41, 56, 54, 36,
+#         22, 34, 40, 34, 19, 8, 9, 52 ]
+# table = ChainingHash(4)
+# print(table.capacity(),4)
+# print(len(table),0)
+
+# for i in range(4):
+#     table.insert(keys[i],values[i])
+
+# print(table.capacity(),4)
+# print(len(table),4)
+
+# table.insert(keys[4],values[4])
+# print(table.capacity(),8)
+# print(len(table),5)
+
+# for i in range(5,8):
+#     table.insert(keys[i],values[i])
+# print(table.capacity(),8)
+# print(len(table),8)
+
+# table.insert(keys[8],values[8])
+# print(table.capacity(),16)
+# print(len(table),9)
+
+# for i in range(9,16):
+#     table.insert(keys[i],values[i])
+# print(table.capacity(),16)
+# print(len(table),16)
+
+# table.insert(keys[16],values[16])
+# print(table.capacity(),32)
+# print(len(table),17)
+
+# for i in range(17,32):
+#     table.insert(keys[i],values[i])
+# print(table.capacity(),32)
+# print(len(table),32)
+
+# table.insert(keys[32],values[32])
+# print(table.capacity(),64)
+# print(len(table),33)
+
+# for i in range(32,48):
+#     table.insert(keys[i],values[i])
+# print(table.capacity(),64)
+# print(len(table),48)
+
+# # test that values are all still present after all insertions
+# print()
+# print("*** Searching now ***")
+# print()
+# for i in range(48):
+#     print(table.search(keys[i]),values[i])

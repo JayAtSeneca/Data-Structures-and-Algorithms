@@ -105,7 +105,6 @@ class SortedList:
 
 class ChainingHash:
 
-    
     # You cannot change the function prototypes below.  Other than that
     # how you implement the class is your choice (but it must be a hash
     # table that use chaining for collision resolution)
@@ -133,14 +132,8 @@ class ChainingHash:
             self.the_keys.append(key)
             load_factor = self.length/self.cap
             #if load factor > 1.0, grow the table by doubling its capacity
-            # if load_factor > 1.0:
-                # grow_list = [None] * (self.cap*2)
-                # for i in range(0,len(self.the_table)):
-                #     grow_list[i] = self.the_table[i]
-                # self.the_table = grow_list
-                # del grow_list
-                # self.cap = self.cap * 2
-                #grow it, use search to return the value and use self.the_keys to hash the value and insert it into the new array
+            if load_factor > 1.0:
+                self.grow()
             return True
 
     def modify(self, key, value):
@@ -162,6 +155,16 @@ class ChainingHash:
             is_removed = self.the_table[idx].remove(key)
             return is_removed
 
+    def grow(self):
+        grow_list = [None]*(self.cap*2)
+        for i in range(0,len(self.the_keys)):
+            idx = hash(self.the_keys[i])%self.cap
+            new_idx = hash(self.the_keys[i])%(self.cap*2)
+            grow_list[new_idx] = self.the_table[idx]
+        self.cap = self.cap*2
+        self.the_table = grow_list
+        del grow_list
+
     def search(self, key):
         if key not in self.the_keys:
             return None
@@ -175,39 +178,3 @@ class ChainingHash:
 
     def __len__(self):
         return self.length
-
-keys = ["apple", "banana", "strawberry", "mango","orange", "lichee", "peach", "pear","grape", "nectarine","blackberry", "clementine","apricot","cantaloupe", "honeydew", "pineapple","blueberry", "coconut", "raspberry","cherry","lettuce", "mushroom", "carrot", "broccoli","pepper", "onion", "garlic","shallots","cabbage", "kale", "leeks", "beets","squash","pumpkin","potato","tomato","watercress", "yam","taro","okra","cilantros","parsley","basil","sage","thyme","tumeric","paprika","cloves"]
-values = [32, 16, 18, 19, 22, 25, 72, 12,11, 33, 51, 43, 23, 71, 5, 13,5, 17, 35, 12, 13, 44, 46, 76,8, 10, 15, 18, 11, 64, 73, 7,18, 15, 22, 73,41, 56, 54, 36,22, 34, 40, 34, 19, 8, 9, 52 ]
-
-table = ChainingHash()
-
-# testing the insert and search functions chainingHash
-# for i in range(32):
-#     print(table.insert(keys[i],values[i]),True)
-#     print(table.capacity(), 32)
-#     print(len(table),i+1)
-# print()
-# print("******* searching now *********")
-# print()
-# for i in range(32):
-#     print(table.search(keys[i]),values[i])
-# Modify function testing
-# for i in range(32):
-#     print(table.modify(keys[i],values[i]),False)
-#     print(table.capacity(), 32)
-#     print(len(table),0)
-for i in range(32):
-    table.insert(keys[i],values[i])
-# print()
-# print("****** Modifying the table ********")
-# print()
-# for i in range(32):
-#     print(table.modify(keys[i],values[i]+10),True)
-#     print(table.capacity(), 32)
-#     print(len(table),32)
-print()
-print("****** Removing from the table ********")
-print()
-for i in range(32):
-    print(table.remove(keys[i]),True)
-

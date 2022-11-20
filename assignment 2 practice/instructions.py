@@ -1,7 +1,5 @@
 cap = 32
-idx = hash("apple")%cap
-my_list = []
-my_list.append(idx)
-idx = hash("apple")%(cap)
-if idx in my_list:
-    print("It is there")
+idx = hash("apple")%32
+new_idx = hash("apple")%64
+print(idx)
+print(new_idx)
