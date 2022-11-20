@@ -196,8 +196,8 @@ table = ChainingHash()
 #     print(table.modify(keys[i],values[i]),False)
 #     print(table.capacity(), 32)
 #     print(len(table),0)
-# for i in range(32):
-#     table.insert(keys[i],values[i])
+for i in range(32):
+    table.insert(keys[i],values[i])
 # print()
 # print("****** Modifying the table ********")
 # print()
@@ -205,5 +205,9 @@ table = ChainingHash()
 #     print(table.modify(keys[i],values[i]+10),True)
 #     print(table.capacity(), 32)
 #     print(len(table),32)
-# for i in range(32):
-#     print(table.search(keys[i]),values[i]+10)
+print()
+print("****** Removing from the table ********")
+print()
+for i in range(32):
+    print(table.remove(keys[i]),True)
+
