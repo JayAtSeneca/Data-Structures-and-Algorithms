@@ -1,0 +1,25 @@
+METHOD 1:
+# old_table = self.the_table
+        # del self.the_table
+        # self.the_table = [None]*(self.cap*2)
+        # self.cap = self.cap * 2
+        # self.the_length = 0
+        # for i in range(0,len(old_table)):
+        #     if old_table[i] is not None:
+        #         self.insert(old_table[i].key, old_table[i].value)
+
+METHOD 2:
+ def grow(self):
+        
+        grow_list = [None]*(self.cap*2)
+        for i in range(0,len(self.the_keys)):
+            idx = hash(self.the_keys[i])%self.cap
+            new_idx = hash(self.the_keys[i])%(self.cap*2)
+            if self.the_table[idx].key == "deleted":
+                grow_list[new_idx].key = "deleted"
+                grow_list[new_idx].value = None
+            else:
+                grow_list[new_idx] = self.the_table[idx]
+        self.cap = self.cap*2
+        self.the_table = grow_list
+        del grow_list 
