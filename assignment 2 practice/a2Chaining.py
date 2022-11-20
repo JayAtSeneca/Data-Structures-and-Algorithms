@@ -110,7 +110,7 @@ class ChainingHash:
     # table that use chaining for collision resolution)
 
     def __init__(self, cap=32):
-        self.the_table = [None] * 32
+        self.the_table = [None] * cap
         self.cap = cap
         self.the_keys = []
         self.length = 0
