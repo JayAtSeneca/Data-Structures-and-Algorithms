@@ -1,0 +1,22 @@
+pseudocode of Linear Probe remove function
+
+!!!VERY IMPORTANT !!!
+
+function remove(key)
+ i := find_slot(key)
+ if slot[i] is unoccupied
+     return   // key is not in the table
+ j := i
+ loop
+     j := (j+1) modulo num_slots
+     if slot[j] is unoccupied
+         exit loop
+     k := hash(slot[j].key) modulo num_slots
+     if (j > i and (k <= i or k > j)) or
+        (j < i and (k <= i and k > j)) (note 2)
+         slot[i] := slot[j]
+         i := j
+ mark slot[i] as unoccupied
+
+Link: https://stackoverflow.com/questions/9127207/hash-table-why-deletion-is-difficult-in-open-addressing-scheme
+Link: https://en.wikipedia.org/w/index.php?title=Hash_table&oldid=95275577
