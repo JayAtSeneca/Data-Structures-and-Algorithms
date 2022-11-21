@@ -1,0 +1,174 @@
+class LinearProbingHash:
+
+    # This is a single record in a chaining hash table.  You can
+    # change this in anyway you wish (including not using it at all)
+    class Record:
+        def __init__(self, key = None, value=None):
+            self.key = key
+            self.value = value
+
+
+
+    # You cannot change the function prototypes below.  Other than that
+    # how you implement the class is your choice (but it must be a hash
+    # table that use linear probing for collision resolution)
+    
+    def __init__(self, cap=32):
+        self.cap = 32
+        self.length = 0
+        self.the_table = [None]*self.cap
+        self.the_keys = []
+
+    def insert(self,key, value):
+        if key in self.the_keys:
+            return False
+        else:
+            is_inserted = True
+            self.the_keys.append(key)
+            self.length += 1
+            idx = hash(key) % self.cap
+            while self.the_table[idx] is not None:
+                if self.the_table[idx].key == key:
+                    self.length -= 1
+                    is_inserted = False
+                    break
+                idx = (idx+1)%self.cap
+            new_record = LinearProbingHash.Record(key,value)
+            self.the_table[idx] = new_record
+            load_factor = self.length/self.cap
+            if load_factor > 0.7:
+                self.grow()
+            return is_inserted
+
+
+    def modify(self, key, value):
+        if key not in self.the_keys:
+            return False
+        else:
+            is_modified = False
+            idx = hash(key) % self.cap
+            while self.the_table[idx] is not None:
+                if self.the_table[idx].key == key:
+                    self.length -= 1
+                    is_modified = True
+                    break
+                idx = (idx+1)%self.cap
+            new_record = LinearProbingHash.Record(key,value)
+            self.the_table[idx] = new_record
+            return is_modified
+
+    def remove(self, key):
+        if key not in self.the_keys:
+            return False
+        else:
+            idx = hash(key)%self.cap
+            self.the_keys.remove(key)
+            self.length -= 1
+            if self.the_table[idx].key != key:
+                original_key = idx
+                while self.the_table[idx].key != key:
+                    idx = (idx+1)%self.cap
+                    if self.the_table[idx]is None:
+                        return False
+                    if idx == original_key:
+                        return False
+            self.the_table[idx] = None
+            return True
+
+
+    def search(self, key):
+        if key not in self.the_keys:
+            return None
+        else:
+            idx = hash(key)%self.cap
+            if self.table[idx] is None:
+                return None
+            if self.table[idx].key != key:
+                original_key = idx
+                while self.the_table[idx].key != key:
+                    idx = (idx + 1)%self.cap
+                    if self.the_table[idx] is None:
+                        return None
+                    if idx==original_key:
+                        return None
+            return self.the_table[idx].value
+    
+    def grow(self):
+        self.cap *= 2
+        self.length = 0
+        old_table = self.the_table
+        self.the_table = [None]*self.cap
+        for i in old_table:
+            if i is not None:
+                self.insert(i.key, i.value)
+
+    def capacity(self):
+        return self.cap
+
+    def __len__(self):
+        return self.length
+
+keys = ["apple", "banana", "strawberry", "mango",
+                "orange", "lichee", "peach", "pear",
+                "grape", "nectarine","blackberry", "clementine",
+                "apricot","cantaloupe", "honeydew", "pineapple",
+                "blueberry", "coconut", "raspberry","cherry",
+                "lettuce", "mushroom", "carrot", "broccoli",
+                "pepper", "onion", "garlic","shallots",
+                "cabbage", "kale", "leeks", "beets",
+                "squash","pumpkin","potato","tomato",
+                "watercress", "yam","taro","okra",
+                "cilantros","parsley","basil","sage",
+                "thyme","tumeric","paprika","cloves"]
+
+values = [32, 16, 18, 19, 22, 25, 72, 12, 
+                    11, 33, 51, 43, 23, 71, 5, 13,
+                    5, 17, 35, 12, 13, 44, 46, 76,
+                    8, 10, 15, 18, 11, 64, 73, 7,
+                    18, 15, 22, 73,41, 56, 54, 36,
+                    22, 34, 40, 34, 19, 8, 9, 52 ]
+table = LinearProbingHash(8)
+for i in range(5):
+    table.insert(keys[i],values[i])
+    print(table.capacity(),8)
+    print(len(table),5)
+table.insert(keys[5],values[5])
+print(table.capacity(),16)
+print(len(table),6)
+for i in range(6,11):
+    table.insert(keys[i],values[i])
+print(table.capacity(),16)
+print(len(table),11)
+print()
+table.insert(keys[11],values[11])
+print(table.capacity(),32)
+print(len(table),12)
+print()
+print()
+for i in range(12,22):
+    table.insert(keys[i],values[i])
+print(table.capacity(),32)
+print(len(table),22)
+
+table.insert(keys[22],values[22])
+print(table.capacity(),64)
+print(len(table),23)
+
+for i in range(23,44):
+    table.insert(keys[i],values[i])
+print(table.capacity(),64)
+print(len(table),44)
+
+table.insert(keys[44],values[44])
+print(table.capacity(),128)
+print(len(table),45)
+
+for i in range(45,48):
+    table.insert(keys[i],values[i])
+print(table.capacity(),128)
+print(len(table),48)
+
+    # test that values are all still present after all insertions
+print("***test that values are all still present ******")
+for i in range(48):
+    print(table.search(keys[i]),values[i])

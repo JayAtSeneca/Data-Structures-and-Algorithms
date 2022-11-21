@@ -40,6 +40,7 @@ class LinearProbingHash:
             load_factor = self.length/self.cap
             if load_factor>0.7:
                 self.grow()
+            return True
 
     def modify(self, key, value):
         if key not in self.the_keys:
@@ -59,6 +60,7 @@ class LinearProbingHash:
             return False
         else:
             idx = hash(key)%self.cap
+            self.the_keys.remove(key)
             while self.the_table[idx] is not None:
                 if self.the_table[idx].key == key:
                     self.the_table[idx].key = "deleted"
@@ -79,21 +81,81 @@ class LinearProbingHash:
                 else:
                     idx = (idx+1)%self.cap
     def grow(self):
-        grow_list = [None]*(self.cap*2)
-        for i in range(0,len(self.the_keys)):
-            idx = hash(self.the_keys[i])%self.cap
-            new_idx = hash(self.the_keys[i])%(self.cap*2)
-            if self.the_table[idx].key == "deleted":
-                grow_list[new_idx].key = "deleted"
-                grow_list[new_idx].value = None
-            else:
-                grow_list[new_idx] = self.the_table[idx]
         self.cap = self.cap*2
-        self.the_table = grow_list
-        del grow_list
+        self.length = 0
+        old_table = self.the_table
+        self.the_table = [None] * self.cap
+        for i in range(0,len(old_table)):
+            if old_table[i] is not None:
+                self.insert(old_table[i].key,old_table[i].value)
+
 
     def capacity(self):
         return self.cap
 
     def __len__(self):
         return self.length
+keys = ["apple", "banana", "strawberry", "mango",
+                "orange", "lichee", "peach", "pear",
+                "grape", "nectarine","blackberry", "clementine",
+                "apricot","cantaloupe", "honeydew", "pineapple",
+                "blueberry", "coconut", "raspberry","cherry",
+                "lettuce", "mushroom", "carrot", "broccoli",
+                "pepper", "onion", "garlic","shallots",
+                "cabbage", "kale", "leeks", "beets",
+                "squash","pumpkin","potato","tomato",
+                "watercress", "yam","taro","okra",
+                "cilantros","parsley","basil","sage",
+                "thyme","tumeric","paprika","cloves"]
+
+values = [32, 16, 18, 19, 22, 25, 72, 12, 
+                    11, 33, 51, 43, 23, 71, 5, 13,
+                    5, 17, 35, 12, 13, 44, 46, 76,
+                    8, 10, 15, 18, 11, 64, 73, 7,
+                    18, 15, 22, 73,41, 56, 54, 36,
+                    22, 34, 40, 34, 19, 8, 9, 52 ]
+table = LinearProbingHash(8)
+for i in range(5):
+    table.insert(keys[i],values[i])
+    print(table.capacity(),8)
+    print(len(table),5)
+table.insert(keys[5],values[5])
+print(table.capacity(),16)
+print(len(table),6)
+for i in range(6,11):
+    table.insert(keys[i],values[i])
+print(table.capacity(),16)
+print(len(table),11)
+print()
+table.insert(keys[11],values[11])
+print(table.capacity(),32)
+print(len(table),12)
+print()
+print()
+for i in range(12,22):
+    table.insert(keys[i],values[i])
+print(table.capacity(),32)
+print(len(table),22)
+
+table.insert(keys[22],values[22])
+print(table.capacity(),64)
+print(len(table),23)
+
+for i in range(23,44):
+    table.insert(keys[i],values[i])
+print(table.capacity(),64)
+print(len(table),44)
+
+table.insert(keys[44],values[44])
+print(table.capacity(),128)
+print(len(table),45)
+
+for i in range(45,48):
+    table.insert(keys[i],values[i])
+print(table.capacity(),128)
+print(len(table),48)
+
+    # test that values are all still present after all insertions
+print("***test that values are all still present ******")
+for i in range(48):
+    print(table.search(keys[i]),values[i])
