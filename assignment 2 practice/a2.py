@@ -266,13 +266,12 @@ class LinearProbingHash:
             current = (emptyIdx+1)%self.cap
             while self.the_table[current].is_empty != True:
                 initial_idx = hash(self.the_table[current].key) % self.cap
-                if initial_idx == emptyIdx:
-                    if initial_idx<emptyIdx<=current:
-                        self.the_table[emptyIdx].key = self.the_table[current].key
-                        self.the_table[emptyIdx].value = self.the_table[current].value
-                        self.the_table[emptyIdx].is_empty = False
-                        self.the_table[current] = LinearProbingHash.Record()
-                        emptyIdx = current
+                if (current > emptyIdx and (initial_idx<=emptyIdx or initial_idx>current)) or (current < emptyIdx and (initial_idx<=emptyIdx and initial_idx>current)):
+                    self.the_table[emptyIdx].key = self.the_table[current].key
+                    self.the_table[emptyIdx].value = self.the_table[current].value
+                    self.the_table[emptyIdx].is_empty = False
+                    self.the_table[current] = LinearProbingHash.Record()
+                    emptyIdx = current
                 current = (current+1)%self.cap
             return True
         else:
