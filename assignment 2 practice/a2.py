@@ -267,7 +267,7 @@ class LinearProbingHash:
             while self.the_table[current].is_empty != True:
                 initial_idx = hash(self.the_table[current].key) % self.cap
                 if initial_idx == emptyIdx:
-                    if initial_idx<=emptyIdx<=current:
+                    if initial_idx<emptyIdx<=current:
                         self.the_table[emptyIdx].key = self.the_table[current].key
                         self.the_table[emptyIdx].value = self.the_table[current].value
                         self.the_table[emptyIdx].is_empty = False
