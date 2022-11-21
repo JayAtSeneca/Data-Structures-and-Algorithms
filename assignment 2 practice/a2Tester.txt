@@ -1,0 +1,59 @@
+keys = ["apple", "banana", "strawberry", "mango",
+                "orange", "lichee", "peach", "pear",
+                "grape", "nectarine","blackberry", "clementine",
+                "apricot","cantaloupe", "honeydew", "pineapple",
+                "blueberry", "coconut", "raspberry","cherry",
+                "lettuce", "mushroom", "carrot", "broccoli",
+                "pepper", "onion", "garlic","shallots",
+                "cabbage", "kale", "leeks", "beets",
+                "squash","pumpkin","potato","tomato",
+                "watercress", "yam","taro","okra",
+                "cilantros","parsley","basil","sage",
+                "thyme","tumeric","paprika","cloves"]
+
+values = [32, 16, 18, 19, 22, 25, 72, 12, 
+                    11, 33, 51, 43, 23, 71, 5, 13,
+                    5, 17, 35, 12, 13, 44, 46, 76,
+                    8, 10, 15, 18, 11, 64, 73, 7,
+                    18, 15, 22, 73,41, 56, 54, 36,
+                    22, 34, 40, 34, 19, 8, 9, 52 ]
+
+table = LinearProbingHash()
+
+for i in range(0,48):
+    table.insert(keys[i],values[i])
+print(table.capacity(),128)
+print(len(table),48)
+
+total=48
+# remove every other value, return should be true
+for i in range(0,48,2):
+    total-=1
+    print(table.remove(keys[i]),True)
+    print(len(table),total)
+    print(table.capacity(), 128)
+
+# perform search and make sure that only those that
+# should be gone are gone, and those that should be there
+# are there 
+for i in range(0,48):
+    if i%2 == 0:
+        print(table.search(keys[i]),None)
+    else:
+        print(table.search(keys[i]),values[i])
+
+# removing records that are not there should result 
+# in false return
+        # for i in range(0,48,2):
+        #     self.assertEqual(table.remove(keys[i]),False)
+        #     self.assertEqual(len(table),total)
+        #     self.assertEqual(table.capacity(), 128)
+
+
+        # # ensure that trying to remove records that do not exist
+        # # has no effect on records that are in table
+        # for i in range(0,48):
+        #     if i%2 == 0:
+        #         self.assertEqual(table.search(keys[i]),None)
+        #     else:
+        #         self.assertEqual(table.search(keys[i]),values[i])
