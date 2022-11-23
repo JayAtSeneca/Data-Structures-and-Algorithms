@@ -4,7 +4,7 @@
 #   To use this, run: python test_a12.py
 
 import unittest
-from a16 import SortedList
+from a2One import SortedList
 
 class A1TestCase(unittest.TestCase):
     """These are the test cases for functions and classes of a1"""

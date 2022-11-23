@@ -204,13 +204,11 @@ class LinearProbingHash:
             new_record = LinearProbingHash.Record()
             self.the_table.append(new_record)
             del new_record
-        self.the_keys = []
 
 
     def insert(self,key, value):
-        if key in self.the_keys:
-            return False
-        else:
+        is_present = self._find_index(key)
+        if is_present is None:
             is_inserted = False
             idx = hash(key)%self.cap
             if self.the_table[idx].is_empty is True:
@@ -227,12 +225,13 @@ class LinearProbingHash:
                         is_inserted = True
                         break
                     idx = (idx+1)%self.cap
-            self.the_keys.append(key)
             self.length += 1
             load_factor = self.length/self.cap
             if load_factor > 0.7:
                 self._grow()
             return is_inserted
+        else:
+            return False
 
     def search(self, key):
         idx = self._find_index(key)
@@ -261,7 +260,6 @@ class LinearProbingHash:
         if idx is not None:
             emptyIdx = idx
             self.length -= 1
-            self.the_keys.remove(key)
             self.the_table[emptyIdx] = LinearProbingHash.Record()
             current = (emptyIdx+1)%self.cap
             while self.the_table[current].is_empty != True:
@@ -281,7 +279,6 @@ class LinearProbingHash:
         self.cap *= 2
         self.length = 0
         old_table = self.the_table
-        self.the_keys = []
         self.the_table = []
         for i in range(self.cap):
             new_record = LinearProbingHash.Record()
