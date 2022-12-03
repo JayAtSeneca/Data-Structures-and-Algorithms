@@ -1,0 +1,80 @@
+    
+class Trie:
+    class TrieNode:
+        
+        # TrieNode is internal.  Feel free to add
+        # to the argument list for its init function.
+        # add to this init function whatever data members you like
+        def __init__(self):
+            self.children = [None] * 26
+            self.is_end_of_word = False
+            
+
+    # You cannot alter the prototype of this __init__ function
+    # However you can add whatever data members you need
+    def __init__(self):
+        self.root = self.TrieNode()
+
+    # function adds word to the Trie
+    def insert(self, word):
+        # Adds word to the Trie
+        curr_node = self.root
+        for ch in word:
+            ch = ch.lower()
+            index = self.get_index(ch)
+            if not curr_node.children[index]:
+                curr_node.children[index] = self.TrieNode()
+            curr_node = curr_node.children[index]
+        curr_node.is_end_of_word = True
+
+
+    # function searches for word in the Trie, returns True if found, False otherwise
+    def search(self, word):
+        # Returns True if word is in the Trie, False otherwise
+        curr_node = self.root
+        for ch in word:
+            ch = ch.lower()
+            index = self.get_index(ch)
+            if not curr_node.children[index]:
+                return False
+            curr_node = curr_node.children[index]
+        return curr_node.is_end_of_word
+
+
+    # function returns the list of all words in the Trie in alphabetical order
+    def get_all(self):
+        # Returns a list of all the words in a trie in alphabetical order
+        words = []
+        self.traverse_trie(self.root, "", words)
+        return words
+
+    def traverse_trie(self, node, prefix, words):
+        # Recursive helper function to traverse the Trie and collect words starting from the given node
+        if node.is_end_of_word:
+            words.append(prefix)
+
+        for i in range(26):
+            if node.children[i]:
+                ch = chr(i + ord('A'))
+                self.traverse_trie(node.children[i], prefix + ch, words)
+
+    # function returns the list of all words that begin with prefix in the Trie in
+    # alphabetical order
+    def begins_with(self, prefix):
+        # Returns a list of words that begin with prefix in alphabetical order
+        curr_node = self.root
+        for ch in prefix:
+            ch = ch.lower()
+            index = self.get_index(ch)
+            if not curr_node.children[index]:
+                return []
+            curr_node = curr_node.children[index]
+
+        # At this point, we have reached the node corresponding to the prefix.
+        # Now we need to traverse the Trie and collect all the words starting from this node
+        words = []
+        self.traverse_trie(curr_node, prefix, words)
+        return words
+    def get_index(self,ch):
+        return ord(ch.lower()) - ord('a')
+
